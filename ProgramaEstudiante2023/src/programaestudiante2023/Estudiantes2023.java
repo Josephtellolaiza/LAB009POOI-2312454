@@ -11,34 +11,107 @@ public class Estudiantes2023 {
         cargarArchivo();
     }
 
-    public void adicionar(Estudiante estudiante) {
- 	estudiantes.add(estudiante);
+    public void adicionar(Estudiante estudiante) 
+    {
+    	estudiantes.add(estudiante);
     }
 
-    public void eliminar(Estudiante estudiante) {
-        //Introduce c?digo
+    public void eliminar(Estudiante estudiante) 
+    {
+        estudiantes.remove(estudiante);
     }
 
-    public Estudiante obtener(int pos) {
-	//Introduce c?digo
-        return null;
+    public Estudiante obtenerEstudiante(int pos) 
+    {
+    	return estudiantes.get(pos);
+    }
+    
+    public ArrayList<Estudiante> obtenerTodosEstudiantes() 
+    {
+    	return estudiantes;
+    }
+    
+    public int obtenerUltimoCodigo() 
+    {
+    	int ultimo = estudiantes.size() - 1;
+    	Estudiante ultimoEstudiante = estudiantes.get(ultimo);
+    	return ultimoEstudiante.getCodigo();
+    }
+    
+    public String buscarNombre(String nombre)
+    {
+    	int contador = 0;
+    	boolean salirBucle = false;
+    	
+    	String resultado = new String();
+    	
+    	while (salirBucle == false)
+    	{
+    		
+    		if(nombre.equals(this.obtenerEstudiante(contador).getNombre()))
+    		{
+    			System.out.println("ESTUDIANTE ENCONTRADO");
+    			resultado = this.obtenerEstudiante(contador).toString();
+    			salirBucle = true;
+    		}
+    		
+    		if(contador == (this.tamano() - 1))
+        	{
+        		resultado = "ESTUDIANTE NO REGISTRADO";
+        		salirBucle = true;
+        	}
+    		
+    		contador++;
+    	}
+    	
+    	return resultado;
+    }
+    
+    public String buscarCodigo(int codigo)
+    {
+    	int contador = 0;
+    	boolean salirBucle = false;
+    	
+    	String resultado = new String();
+    	
+    	while (salirBucle == false)
+    	{
+    		
+    		if(codigo == this.obtenerEstudiante(contador).getCodigo())
+    		{
+    			System.out.println("ESTUDIANTE ENCONTRADO");
+    			resultado = this.obtenerEstudiante(contador).toString();
+    			salirBucle = true;
+    		}
+    		
+    		if(contador == (this.tamano() - 1))
+        	{
+        		resultado = "ESTUDIANTE NO REGISTRADO";
+        		salirBucle = true;
+        	}
+    		
+    		contador++;
+    	}
+    	
+    	return resultado;
     }
 
-    public Estudiante buscar(int codigo) {
-	//Introduce c?digo        
-	  return null;
+    public int tamano()
+    {
+	  return estudiantes.size();
     }
 
-    public int tamano() {
-        //Introduce c?digo        
-	  return 0;
-    }
-
-    public void listarEstudiantes(){
-	for(Estudiante estudiante : estudiantes)
-	{
-		System.out.println(estudiante.toString());
-	}
+    public void listarEstudiantes()
+    {
+    	System.out.println("----------------------------------------------------------------------- /n");
+    
+    	for(Estudiante estudiante : estudiantes)
+		{
+    		System.out.println(estudiante.toString());
+    		System.out.println();
+		}
+    	
+    	System.out.println("----------------------------------------------------------------------- /n");
     }
 
     // M?todos para manipular el archivo de texto

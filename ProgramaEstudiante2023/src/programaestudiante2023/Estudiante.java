@@ -49,10 +49,10 @@ public class Estudiante {
 	@Override
 	public String toString() {
 		return "Estudiante{" +
-				"codigo=" + codigo +
-				", ciclo=" + ciclo +
-				", nombre='" + nombre + '\'' +
-				", pension=" + pension +
+				"Codigo = " + codigo +
+				", Ciclo = " + ciclo +
+				", Nombre = " + nombre +
+				", Pension = " + pension +
 				'}';
 	}
 }
