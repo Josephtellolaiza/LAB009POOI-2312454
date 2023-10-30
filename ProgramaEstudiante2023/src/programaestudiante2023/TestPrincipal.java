@@ -6,7 +6,6 @@ public class TestPrincipal
 {
 	public static void main(String[] args) 
 	{
-<<<<<<< HEAD
 		Estudiantes2023 estudiantes2023 = new Estudiantes2023();
 		
 		System.out.println("");
@@ -424,7 +423,4 @@ public class TestPrincipal
 		eCicloModificado.close();
 		ePensionModificada.close();
 	}
-=======
-	 }
->>>>>>> 7c3d798831bc1f34007274950152f429746bdf1f
 }
