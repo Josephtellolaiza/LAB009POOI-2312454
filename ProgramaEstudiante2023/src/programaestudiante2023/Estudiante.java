@@ -48,11 +48,13 @@ public class Estudiante {
 
 	@Override
 	public String toString() {
-		return "Estudiante{" +
-				"Codigo = " + codigo +
-				", Ciclo = " + ciclo +
-				", Nombre = " + nombre +
-				", Pension = " + pension +
-				'}';
+	    int anchoCodigo = 10; 
+	    int anchoCiclo = 10;
+	    int anchoNombre = 34; 
+	    int anchoPension = 20;
+
+	    return String.format("%-" + anchoCodigo + "s %-" + anchoCiclo + "s %-" + anchoNombre + "s %-" + anchoPension + "s",
+	            codigo, ciclo, nombre, pension);
 	}
+
 }
