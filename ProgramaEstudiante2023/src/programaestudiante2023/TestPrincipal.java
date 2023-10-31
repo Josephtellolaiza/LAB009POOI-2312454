@@ -75,10 +75,10 @@ public class TestPrincipal
 					do
 					{
 						System.out.println("INGRESE NOMBRES: ");
-						nuevoNombre = eNuevoNombre.next();
+						nuevoNombre = eNuevoNombre.nextLine();
 						
 						System.out.println("INGRESE APELLIDOS: ");
-						nuevoApellido = eNuevoApellido.next();
+						nuevoApellido = eNuevoApellido.nextLine();
 						
 						System.out.println("INGRESE CICLO: ");
 						nuevoCiclo = eNuevoCiclo.nextInt();
@@ -89,7 +89,7 @@ public class TestPrincipal
 						System.out.println("ESTOS DATOS SON CORRECTOS? Y/N");
 						respuestaYN1 = eRespuestaYN1.next();
 						
-						if (respuestaYN1.equals("Y"))
+						if (respuestaYN1.equalsIgnoreCase("Y") || respuestaYN1.equalsIgnoreCase("y"))
 						{
 							nuevoNombreCompleto = nuevoNombre + " " + nuevoApellido;
 							
@@ -98,11 +98,11 @@ public class TestPrincipal
 							
 							Estudiante nuevoEstudiante = new Estudiante(nuevoCodigo, nuevoNombreCompleto, nuevoCiclo, nuevaPension);
 							estudiantes2023.adicionar(nuevoEstudiante);
-							
+							estudiantes2023.modificarApellidosAMinusculas();
 							salirOpcion1 = true;
 						}
 						
-						else if (respuestaYN1.equals("N"))
+						else if (respuestaYN1.equalsIgnoreCase("N") || respuestaYN1.equalsIgnoreCase("n"))
 						{
 							System.out.println("VUELVA A INGRESAR LOS DATOS");
 						}
@@ -200,59 +200,57 @@ public class TestPrincipal
 					break;
 				}
 				
-				case 3:
-				{
-					boolean salirOpcion3 = false;
-					
-					int codigoEstudianteEliminar;
-					
-					String respuestaYN2 = new String();
-					
-					System.out.println("****** ELIMINACION DEL ESTUDIANTE ******");
-					estudiantes2023.listarEstudiantes();
-					
-					do
-					{
-						System.out.println("INGRESE EL CODIGO DEL ALUMNO A ELIMINAR:");
-						codigoEstudianteEliminar = eCodigoEstudianteEliminar.nextInt();
-						
-						System.out.println("ES ESTE EL CODIGO CORRECTO? Y/N");
-						
-						respuestaYN2 = eRespuestaYN2.next();
-						
-						if (respuestaYN2.equals("Y"))
-						{
-							for(int contador = 0; contador < estudiantes2023.tamano(); contador++)
-							{
-					    		if(codigoEstudianteEliminar == estudiantes2023.obtenerEstudiante(contador).getCodigo())
-					    		{
-					    			estudiantes2023.eliminar(estudiantes2023.obtenerEstudiante(contador));
-					    		}
-							}
-							
-							System.out.println("ESTUDIANTE ELIMINADO");
-							salirOpcion3 = true;
-						}
-						
-						else if(respuestaYN2.equals("N"))
-						{
-							System.out.println("INGRESE EL CODIGO CORRECTO");
-						}
-						
-						else
-						{
-							System.out.println("RESPUESTA INVALIDA");
-						}
-					}
-					while(salirOpcion3 == false);
-					
-					System.out.println("");
-					System.out.println("DESEA INGRESAR OTRA OPCION?");
-					System.out.println("");
-					System.out.println("");
-					
-					break;
+				case 3: {
+				    boolean salirOpcion3 = false;
+				    
+				    int codigoEstudianteEliminar = 0;
+				    
+				    String respuestaYN2;
+				    
+				    System.out.println("****** ELIMINACION DEL ESTUDIANTE ******");
+				    estudiantes2023.listarEstudiantes();
+				    
+				    do {
+				        boolean codigoValido = false;
+				        
+				        while (!codigoValido) {
+				            try {
+				                System.out.println("INGRESE EL CODIGO DEL ALUMNO A ELIMINAR:");
+				                codigoEstudianteEliminar = Integer.parseInt(eCodigoEstudianteEliminar.next());
+				                codigoValido = true;
+				            } catch (NumberFormatException e) {
+				                System.out.println("Entrada no valida. Debe ingresar un numero.\n");
+				            }
+				        }
+
+				        System.out.println("ES ESTE EL CODIGO CORRECTO? Y/N");
+				        
+				        respuestaYN2 = eRespuestaYN2.next();
+				        
+				        if (respuestaYN2.equalsIgnoreCase("Y") || respuestaYN2.equalsIgnoreCase("y")) {
+				            for (int contador = 0; contador < estudiantes2023.tamano(); contador++) {
+				                if (codigoEstudianteEliminar == estudiantes2023.obtenerEstudiante(contador).getCodigo()) {
+				                    estudiantes2023.eliminar(estudiantes2023.obtenerEstudiante(contador));
+				                }
+				            }
+				            
+				            System.out.println("ESTUDIANTE ELIMINADO");
+				            salirOpcion3 = true;
+				        } else if (respuestaYN2.equalsIgnoreCase("N") || respuestaYN2.equalsIgnoreCase("n")) {
+				            System.out.println("INGRESE EL CODIGO CORRECTO\n");
+				        } else {
+				            System.out.println("RESPUESTA INVALIDA");
+				        }
+				    } while (!salirOpcion3);
+				    
+				    System.out.println("");
+				    System.out.println("DESEA INGRESAR OTRA OPCION?");
+				    System.out.println("");
+				    System.out.println("");
+				    
+				    break;
 				}
+
 				
 				case 4:
 				{
@@ -353,9 +351,25 @@ public class TestPrincipal
 				
 				case 5:
 				{
-					break;
+				    System.out.println("****** MODIFICAR APELLIDOS EN MINÚSCULAS ******");
+				    estudiantes2023.modificarApellidosAMinusculas();
+				   
+				    System.out.println("Apellidos modificados a minúsculas.");
+				    
+				    System.out.println("Tabla de estudiantes con apellidos en minúsculas:");
+				    System.out.println("Codigo    Ciclo      Nombre                              Pension");
+				    System.out.println("-----------------------------------------------------------------------");
+
+				    for (Estudiante estudiante : estudiantes2023.obtenerTodosEstudiantes()) {
+				        System.out.println(estudiante.toString());
+				    }
+
+				    System.out.println("-----------------------------------------------------------------------");
+
+				    break;
 				}
-				
+
+
 				case 6:
 				{
 					System.out.println("****** ESTUDIANTES DEL 2023 ******");
@@ -370,19 +384,66 @@ public class TestPrincipal
 				
 				case 7:
 				{
-					break;
+				    System.out.println("****** VER TODOS LOS ESTUDIANTES POR APELLIDOS ******");
+				    estudiantes2023.verEstudiantesPorApellidos();
+				    break;
 				}
-				
+
+
 				case 8:
 				{
-					break;
+				    double limitePension;
+				    boolean estudiantesEncontrados;
+				    
+				    do {
+				        System.out.print("Ingrese pension: ");
+				        limitePension = entradaMenu.nextDouble();
+				        
+				        System.out.println("Estudiantes con pension igual a " + limitePension);
+				        System.out.println("Codigo    Ciclo      Nombre                              Pension");
+				        System.out.println("-----------------------------------------------------------------------");
+				        
+				        estudiantesEncontrados = false;
+				        
+				        for (Estudiante estudiante : estudiantes2023.obtenerTodosEstudiantes()) {
+				            if (estudiante.getPension() == limitePension) {
+				                System.out.println(estudiante.toString());
+				                estudiantesEncontrados = true;
+				            }
+				        }
+				        
+				        System.out.println("-----------------------------------------------------------------------\n");
+				        
+				        if (!estudiantesEncontrados) {
+				            System.out.println("No se encontraron estudiantes con esa pension. Intente nuevamente.\n");
+				        }
+				    } while (!estudiantesEncontrados);
+
+				    break;
 				}
+
 				
 				case 9:
 				{
-					break;
+				    double totalPensiones = 0;
+
+				    System.out.println("Total de pensiones de todos los estudiantes");
+				    System.out.println("=============================================");
+				    System.out.println("Codigo    Ciclo      Nombre                              Pension");
+				    System.out.println("-----------------------------------------------------------------------");
+
+				    for (Estudiante estudiante : estudiantes2023.obtenerTodosEstudiantes()) {
+				        totalPensiones += estudiante.getPension();
+				        System.out.println(estudiante.toString());
+				    }
+
+				    System.out.println("-----------------------------------------------------------------------");
+				    System.out.println(String.format("Total:                             %,.2f", totalPensiones));
+				    
+				    break;
 				}
-				
+
+
 				case 10:
 				{
 					System.out.println("CERRANDO PROGRAMA");
@@ -424,3 +485,4 @@ public class TestPrincipal
 		ePensionModificada.close();
 	}
 }
+
